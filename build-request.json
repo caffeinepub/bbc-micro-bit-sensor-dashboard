@@ -1,0 +1,87 @@
+{
+  "kind": "build_request",
+  "title": "Add ATPA Admin Panel with password-gated connection access and location input",
+  "projectName": "micro:bit Weather Dashboard",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-14",
+      "text": "Create a new glassmorphism panel titled 'ATPA – Admin Transmission Ports Access' that is always visible on the dashboard. The panel displays a password input field and an 'Access' button. The correct password is '2AKFPMB0220'. While the user is not authenticated, the panel shows only the login form. On incorrect password entry, display an inline error message (e.g., 'Access Denied – Invalid Credentials'). On correct password entry, the panel transitions to an unlocked state showing the connection controls and location input described in REQ-15 and REQ-16. A 'Lock / Sign Out' button must be available in the unlocked state to return to the login form. All styling must match the existing glassmorphism design system (frosted glass, glowing borders, smooth CSS transitions). Do not modify any other panel or component.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-7"
+        ],
+        "quotes": [
+          "add another panel to the webiste, do not change anything i repeat anything else. this panel is called ATPA - Admin Transmission Ports Access. when ypu enter hte password to acess this : the password is 2AKFPMB0220"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A panel labelled 'ATPA – Admin Transmission Ports Access' appears on the dashboard without altering any existing panels.",
+        "The panel shows a password input and 'Access' button when locked.",
+        "Entering '2AKFPMB0220' and submitting transitions the panel to the unlocked state.",
+        "Entering any other value shows an 'Access Denied – Invalid Credentials' error.",
+        "A 'Lock / Sign Out' button in the unlocked state resets the panel back to the login form.",
+        "All transitions are animated smoothly consistent with the existing glassmorphism theme.",
+        "No other component, panel, hook, or style is changed."
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "text": "After successful ATPA login, the existing ConnectionPanel (BLE UART + USB Serial connect/disconnect buttons, status indicator, signal icon, data rate counter, and reconnect button) must be rendered inside the ATPA panel in its unlocked state. The ConnectionPanel component itself must not be modified in any way — it must be re-used as-is. The ConnectionPanel must no longer appear outside the ATPA panel (i.e., its original standalone placement in App.tsx should be replaced by its presence inside the ATPA panel). The rest of the dashboard must continue to receive and display sensor data exactly as before.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-7"
+        ],
+        "quotes": [
+          "logging in here will give you access to the serial and ble uart panel - which is already there on the site - move this ble and serial panel without nay changes to the atpa panel after login - you can connecth e microbit here and then on the website it will display all the data"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The ConnectionPanel component is rendered inside the ATPA panel only when the ATPA panel is in the unlocked state.",
+        "The ConnectionPanel component code is unchanged.",
+        "The ConnectionPanel no longer renders as a standalone panel outside ATPA.",
+        "Connecting via Bluetooth or USB Serial from within the ATPA panel still delivers data to all other dashboard panels (temperature, light, compass, etc.).",
+        "When the ATPA panel is locked, the ConnectionPanel is hidden."
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "text": "Inside the ATPA unlocked panel, below the ConnectionPanel, add a 'Device Location' section with a text input labelled 'Enter micro:bit location (city or place)' and a 'Set Location' button. When the user submits a location string, display it as a formatted label (e.g., 'micro:bit Location: London, UK') within the ATPA panel. The location persists until changed or until the user locks the panel. Styling must match the existing glassmorphism design system.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-7"
+        ],
+        "quotes": [
+          "also you can display hte microbits location by typing in its current city or place location after the atpa panel login"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A text input and 'Set Location' button appear in the unlocked ATPA panel below the ConnectionPanel.",
+        "Submitting a location string displays it as 'micro:bit Location: <entered value>' within the ATPA panel.",
+        "The location label updates if the user sets a new location.",
+        "The location is cleared when the panel is locked.",
+        "No other panel or component is affected."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not modify any existing component files (ConnectionPanel, TemperaturePanel, LightLevelPanel, CompassPanel, SoundLevelPanel, StormDetectionPanel, WeatherStatusPanel, HistoryGraphsPanel, DashboardHeader, BrowserCompatibilityNotice, or any hook).",
+    "Do not alter existing CSS, Tailwind config, or global styles.",
+    "The password '2AKFPMB0220' must be checked purely on the frontend; no backend changes are required.",
+    "The ConnectionPanel must be re-used via composition only — zero changes to its source."
+  ],
+  "nonGoals": [
+    "Adding any backend persistence for the ATPA password or location.",
+    "Encrypting or hashing the password.",
+    "Storing the unlocked state across page reloads.",
+    "Adding any new sensor data fields or parsing logic.",
+    "Modifying any existing dashboard panel layout, styling, or behaviour."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

@@ -1,0 +1,218 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "Real-time BBC micro:bit sensor dashboard website using HTML/CSS/JS with glassmorphism design. Receives live JSON data via Web Bluetooth BLE UART or Web Serial USB. Displays temperature (normal + ultra-precise), light level, compass heading, sound level, storm detection, and weather status inference. Features history graphs (5 min), animated gauges, rotating compass needle, and full connection management with reconnect support.",
+  "architectural_notes": [
+    "Pure HTML/CSS/JS (no framework) single-file or multi-file web app",
+    "Uses Web Bluetooth API (BLE UART service) and Web Serial API for micro:bit connectivity",
+    "Micro:bit sends JSON once per second: { t, ultra, l, c, s, storm }",
+    "Must work on both laptop and mobile browsers; Web Bluetooth/Serial have limited mobile support — note Chrome required",
+    "ATPA panel gates the BLE/Serial connection UI behind a password (2AKFPMB0220); connection panel is moved inside ATPA, not duplicated"
+  ],
+  "known_issues": [
+    "Web Bluetooth and Web Serial APIs require Chrome/Edge and HTTPS; not supported on Firefox or Safari"
+  ],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-create-an-animated-gradient-background-that-slowly-cycles-through-deep-atmospheric-colors-e-g-deep-navy-dark-teal-dark-indigo-to-serve-as-the-visual-foundation-for-the-glassmorphism-dashboard",
+      "title": "Create an animated gradient background that slowly cycles through deep atmospheric colors (e.g., deep navy, dark teal, dark indigo) to serve as the visual foundation for the glassmorphism dashboard.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-premium-glassmorphism-design-system-all-panels-use-frosted-glass-effect-backdrop-filter-blur-semi-transparent-white-light-backgrounds-soft-box-shadows-glowing-colored-borders-rounded-corners-and-smooth-css-transitions-on-all-state-changes",
+      "title": "Implement a premium glassmorphism design system: all panels use frosted glass effect (backdrop-filter: blur), semi-transparent white/light backgrounds, soft box shadows, glowing colored borders, rounded corners, and smooth CSS transitions on all state changes.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-connection-panel-with-two-buttons-connect-via-bluetooth-uses-web-bluetooth-api-to-connect-to-micro-bit-ble-uart-service-and-connect-via-usb-uses-web-serial-api-to-connect-via-usb-serial-display-connection-status-indicator-a-signal-icon-a-live-data-rate-counter-packets-per-second-or-bytes-sec-and-a-reconnect-button-that-appears-when-disconnected",
+      "title": "Build a Connection Panel with two buttons: 'Connect via Bluetooth' (uses Web Bluetooth API to connect to micro:bit BLE UART service) and 'Connect via USB' (uses Web Serial API to connect via USB Serial). Display connection status indicator, a signal icon, a live data rate counter (packets per second or bytes/sec), and a 'Reconnect' button that appears when disconnected.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-json-parser-that-reads-the-incoming-data-stream-via-ble-uart-or-usb-serial-and-parses-complete-json-objects-of-the-format-t-number-l-number-c-number-s-number-storm-number-ultra-number-the-parser-must-handle-partial-chunks-buffer-incomplete-lines-detect-malformed-json-gracefully-without-crashing-and-update-all-dashboard-state-at-most-every-1-2-seconds",
+      "title": "Implement a JSON parser that reads the incoming data stream (via BLE UART or USB Serial) and parses complete JSON objects of the format { \"t\": number, \"l\": number, \"c\": number, \"s\": number, \"storm\": number, \"ultra\": number }. The parser must handle partial chunks (buffer incomplete lines), detect malformed JSON gracefully without crashing, and update all dashboard state at most every 1–2 seconds.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-center-temperature-panel-that-displays-both-the-normal-temperature-field-t-and-the-ultra-precise-averaged-temperature-field-ultra-in-large-typography-both-values-must-animate-smoothly-when-they-change-e-g-css-counter-animation-or-spring-style-number-interpolation-units-shown-in-c",
+      "title": "Build a Center Temperature Panel that displays both the normal temperature (field 't') and the ultra-precise averaged temperature (field 'ultra') in large typography. Both values must animate smoothly when they change (e.g., CSS counter animation or spring-style number interpolation). Units shown in °C.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-light-level-panel-displaying-the-light-value-field-l-range-0-255-with-a-horizontal-glowing-animated-progress-bar-the-raw-numeric-value-and-a-contextual-label-dark-0-50-dim-51-100-normal-101-180-bright-181-255-bar-and-label-transitions-must-be-smooth",
+      "title": "Build a Light Level Panel displaying the light value (field 'l', range 0–255) with a horizontal glowing animated progress bar, the raw numeric value, and a contextual label: 'Dark' (0–50), 'Dim' (51–100), 'Normal' (101–180), 'Bright' (181–255). Bar and label transitions must be smooth.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-compass-panel-with-a-circular-compass-graphic-and-a-rotating-needle-the-needle-points-to-the-current-heading-from-field-c-0-360-display-the-heading-value-in-degrees-the-needle-rotation-must-animate-smoothly-taking-the-shortest-rotation-path-when-the-heading-changes",
+      "title": "Build a Compass Panel with a circular compass graphic and a rotating needle. The needle points to the current heading from field 'c' (0–360°). Display the heading value in degrees. The needle rotation must animate smoothly, taking the shortest rotation path when the heading changes.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-sound-level-panel-displaying-the-sound-value-field-s-with-a-vertical-animated-meter-bar-include-contextual-labels-quiet-low-values-normal-medium-loud-high-the-meter-must-animate-live-and-reflect-current-sound-level",
+      "title": "Build a Sound Level Panel displaying the sound value (field 's') with a vertical animated meter bar. Include contextual labels: 'Quiet' (low values), 'Normal' (medium), 'Loud' (high). The meter must animate live and reflect current sound level.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-storm-detection-panel-displaying-the-storm-risk-based-on-field-storm-0-low-1-high-show-a-large-indicator-green-with-text-storm-risk-low-when-storm-0-and-red-with-text-storm-risk-high-when-storm-1-apply-a-subtle-pulsing-glow-animation-on-the-active-state-indicator",
+      "title": "Build a Storm Detection Panel displaying the storm risk based on field 'storm' (0 = low, 1 = high). Show a large indicator: green with text 'Storm Risk Low' when storm=0, and red with text 'Storm Risk High' when storm=1. Apply a subtle pulsing glow animation on the active state indicator.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-weather-status-panel-that-infers-an-overall-weather-condition-from-combined-sensor-readings-and-displays-it-as-large-status-text-inference-rules-storm-1-magnetic-disturbance-t-10-and-l-60-night-cold-t-22-and-l-180-sunny-l-100-and-t-10-cloudy-t-10-and-t-22-and-l-100-mild-additional-conditions-can-be-added-logically",
+      "title": "Build a Weather Status Panel that infers an overall weather condition from combined sensor readings and displays it as large status text. Inference rules: storm=1 → 'Magnetic Disturbance'; t < 10 AND l < 60 → 'Night Cold'; t >= 22 AND l >= 180 → 'Sunny'; l < 100 AND t >= 10 → 'Cloudy'; t >= 10 AND t < 22 AND l >= 100 → 'Mild'. Additional conditions can be added logically.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-history-graphs-section-storing-the-last-5-minutes-of-data-up-to-300-data-points-at-1-sample-sec-display-three-separate-line-graphs-for-temperature-t-light-level-l-and-sound-level-s-graphs-must-have-smooth-animated-lines-labeled-axes-and-update-in-real-time",
+      "title": "Implement a History Graphs section storing the last 5 minutes of data (up to 300 data points at 1 sample/sec). Display three separate line graphs for Temperature (t), Light level (l), and Sound level (s). Graphs must have smooth animated lines, labeled axes, and update in real time.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-cohesive-visual-theme-across-the-entire-dashboard-professional-scientific-monitoring-aesthetic-dark-atmospheric-base-glowing-neon-tinted-glassmorphism-panels-cool-teal-cyan-accent-bold-readable-typography-for-sensor-values-consistent-spacing-and-grid-layout-and-a-browser-compatibility-notice-informing-users-that-web-bluetooth-and-web-serial-require-chrome-or-edge-on-https",
+      "title": "Apply a cohesive visual theme across the entire dashboard: professional scientific monitoring aesthetic, dark atmospheric base, glowing neon-tinted glassmorphism panels (cool teal/cyan accent), bold readable typography for sensor values, consistent spacing and grid layout, and a browser compatibility notice informing users that Web Bluetooth and Web Serial require Chrome or Edge on HTTPS.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-a-custom-dashboard-logo-icon-and-a-rich-atmospheric-background-image-for-use-as-static-assets",
+      "title": "Generate a custom dashboard logo/icon and a rich atmospheric background image for use as static assets.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-new-glassmorphism-panel-titled-atpa-admin-transmission-ports-access-that-is-always-visible-on-the-dashboard-the-panel-displays-a-password-input-field-and-an-access-button-the-correct-password-is-2akfpmb0220-while-the-user-is-not-authenticated-the-panel-shows-only-the-login-form-on-incorrect-password-entry-display-an-inline-error-message-e-g-access-denied-invalid-credentials-on-correct-password-entry-the-panel-transitions-to-an-unlocked-state-showing-the-connection-controls-and-location-input-described-in-req-15-and-req-16-a-lock-sign-out-button-must-be-available-in-the-unlocked-state-to-return-to-the-login-form-all-styling-must-match-the-existing-glassmorphism-design-system-frosted-glass-glowing-borders-smooth-css-transitions-do-not-modify-any-other-panel-or-component",
+      "title": "Create a new glassmorphism panel titled 'ATPA – Admin Transmission Ports Access' that is always visible on the dashboard. The panel displays a password input field and an 'Access' button. The correct password is '2AKFPMB0220'. While the user is not authenticated, the panel shows only the login form. On incorrect password entry, display an inline error message (e.g., 'Access Denied – Invalid Credentials'). On correct password entry, the panel transitions to an unlocked state showing the connection controls and location input described in REQ-15 and REQ-16. A 'Lock / Sign Out' button must be available in the unlocked state to return to the login form. All styling must match the existing glassmorphism design system (frosted glass, glowing borders, smooth CSS transitions). Do not modify any other panel or component.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-after-successful-atpa-login-the-existing-connectionpanel-ble-uart-usb-serial-connect-disconnect-buttons-status-indicator-signal-icon-data-rate-counter-and-reconnect-button-must-be-rendered-inside-the-atpa-panel-in-its-unlocked-state-the-connectionpanel-component-itself-must-not-be-modified-in-any-way-it-must-be-re-used-as-is-the-connectionpanel-must-no-longer-appear-outside-the-atpa-panel-i-e-its-original-standalone-placement-in-app-tsx-should-be-replaced-by-its-presence-inside-the-atpa-panel-the-rest-of-the-dashboard-must-continue-to-receive-and-display-sensor-data-exactly-as-before",
+      "title": "After successful ATPA login, the existing ConnectionPanel (BLE UART + USB Serial connect/disconnect buttons, status indicator, signal icon, data rate counter, and reconnect button) must be rendered inside the ATPA panel in its unlocked state. The ConnectionPanel component itself must not be modified in any way — it must be re-used as-is. The ConnectionPanel must no longer appear outside the ATPA panel (i.e., its original standalone placement in App.tsx should be replaced by its presence inside the ATPA panel). The rest of the dashboard must continue to receive and display sensor data exactly as before.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-inside-the-atpa-unlocked-panel-below-the-connectionpanel-add-a-device-location-section-with-a-text-input-labelled-enter-micro-bit-location-city-or-place-and-a-set-location-button-when-the-user-submits-a-location-string-display-it-as-a-formatted-label-e-g-micro-bit-location-london-uk-within-the-atpa-panel-the-location-persists-until-changed-or-until-the-user-locks-the-panel-styling-must-match-the-existing-glassmorphism-design-system",
+      "title": "Inside the ATPA unlocked panel, below the ConnectionPanel, add a 'Device Location' section with a text input labelled 'Enter micro:bit location (city or place)' and a 'Set Location' button. When the user submits a location string, display it as a formatted label (e.g., 'micro:bit Location: London, UK') within the ATPA panel. The location persists until changed or until the user locks the panel. Styling must match the existing glassmorphism design system.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Glassmorphism UI with frosted glass panels, blur backgrounds, glowing edges, animated gradient background, smooth transitions",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Web Bluetooth BLE UART and Web Serial USB connection management with connect buttons, status indicator, signal icon, data rate display, and reconnect button",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Live JSON parser for micro:bit data stream (t, ultra, l, c, s, storm) updating UI every 1-2 seconds",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Center temperature panel showing normal and ultra-precise temperature with smooth animated number transitions",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Light level panel with glowing horizontal bar, numeric value, and labels (Dark/Dim/Normal/Bright)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Circular compass panel with rotating needle, heading in degrees, and smooth rotation animation",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Sound level panel with vertical animated meter and labels (Quiet/Normal/Loud)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Storm detection panel with large green/red indicator (Storm Risk Low/High) and subtle glow animation",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Weather status panel inferring condition from sensor data (Night Cold, Sunny, Cloudy, Magnetic Disturbance, etc.)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "History graphs storing last 5 minutes of temperature, light, and sound data with smooth animated lines",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "ATPA (Admin Transmission Ports Access) panel with password login (2AKFPMB0220). After login, shows the existing BLE UART and Web Serial connection panel (moved here). Also allows entering the micro:bit's current city/place location to display its location.",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "BBC micro:bit Sensor Dashboard",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

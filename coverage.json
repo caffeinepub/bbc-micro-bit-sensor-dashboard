@@ -1,0 +1,64 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-28T08:49:32.129Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 3,
+    "implemented": 3,
+    "items": [
+      {
+        "id": "REQ-14",
+        "summary": "Create a new glassmorphism panel titled 'ATPA – Admin Transmission Ports Access' that is always visible on the dashboard. The panel displays a password input field and an 'Access' button. The correct password is '2AKFPMB0220'. While the user is not authenticated, the panel shows only the login form. On incorrect password entry, display an inline error message (e.g., 'Access Denied – Invalid Credentials'). On correct password entry, the panel transitions to an unlocked state showing the connection controls and location input described in REQ-15 and REQ-16. A 'Lock / Sign Out' button must be available in the unlocked state to return to the login form. All styling must match the existing glassmorphism design system (frosted glass, glowing borders, smooth CSS transitions). Do not modify any other panel or component.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/ATPAPanel.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/ATPAPanel.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-15",
+        "summary": "After successful ATPA login, the existing ConnectionPanel (BLE UART + USB Serial connect/disconnect buttons, status indicator, signal icon, data rate counter, and reconnect button) must be rendered inside the ATPA panel in its unlocked state. The ConnectionPanel component itself must not be modified in any way — it must be re-used as-is. The ConnectionPanel must no longer appear outside the ATPA panel (i.e., its original standalone placement in App.tsx should be replaced by its presence inside the ATPA panel). The rest of the dashboard must continue to receive and display sensor data exactly as before.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/ATPAPanel.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/ATPAPanel.tsx"
+        ]
+      },
+      {
+        "id": "REQ-16",
+        "summary": "Inside the ATPA unlocked panel, below the ConnectionPanel, add a 'Device Location' section with a text input labelled 'Enter micro:bit location (city or place)' and a 'Set Location' button. When the user submits a location string, display it as a formatted label (e.g., 'micro:bit Location: London, UK') within the ATPA panel. The location persists until changed or until the user locks the panel. Styling must match the existing glassmorphism design system.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/ATPAPanel.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/ATPAPanel.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "build-request.json",
+    "build-template/README.md",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/App.tsx",
+    "frontend/src/components/ATPAPanel.tsx",
+    "frontend/src/index.css",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}
