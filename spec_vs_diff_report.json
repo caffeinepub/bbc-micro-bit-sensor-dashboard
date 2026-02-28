@@ -1,41 +1,14 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-28T08:49:32.126Z",
-  "summary": "The diff implements a new ATPAPanel component with password-gated access, embeds ConnectionPanel inside it, moves ConnectionPanel out of standalone placement in App.tsx, and adds a Device Location section. The implementation closely matches all three requirements. Minor detail: the 'Lock / Sign Out' button label in the component shows 'Lock' with a LogOut icon rather than the full text 'Lock / Sign Out', but this is a cosmetic variation. All core functional requirements appear satisfied. However, index.css and tailwind.config.js were modified contrary to the explicit constraint against altering existing CSS or Tailwind config.",
-  "missing_requirements": [
-    {
-      "id": "REQ-14",
-      "requirement": "The 'Lock / Sign Out' button text must read 'Lock / Sign Out'",
-      "reason": "The ATPAPanel code shows the button renders only 'Lock' as the span text (with a LogOut icon), not the full 'Lock / Sign Out' label specified in the requirement.",
-      "evidence": [
-        "frontend/src/components/ATPAPanel.tsx"
-      ]
-    }
-  ],
-  "hallucinated_features": [
-    {
-      "description": "fadeInUp keyframe animation added to global stylesheet index.css",
-      "reason": "The build request constraint explicitly states 'Do not alter existing CSS, Tailwind config, or global styles.' The diff shows index.css was modified to add a fadeInUp keyframe animation used by ATPAPanel.",
-      "evidence": [
-        "frontend/src/index.css",
-        "frontend-file-summaries.txt"
-      ]
-    },
-    {
-      "description": "Tailwind config extended with new font families, color tokens, glow box-shadow variants, glass backdrop blur values, and keyframe animations",
-      "reason": "The build request constraint explicitly states 'Do not alter existing CSS, Tailwind config, or global styles.' The diff shows tailwind.config.js was modified with new additions.",
-      "evidence": [
-        "frontend-file-summaries.txt"
-      ]
-    }
-  ],
-  "confidence": 0.78,
+  "generatedAt": "2026-02-28T08:55:04.002Z",
+  "summary": "The diff modifies TemperaturePanel.tsx to implement the new -50°C to +110°C scale bar range as required by REQ-17. The MIN_TEMP, MAX_TEMP, and RANGE constants are set correctly, the fill width calculation uses the new range, and tick labels are updated to -50°, 0°, 50°, and 110°. Only TemperaturePanel.tsx is modified among component files. Two other files (frontend-file-summaries.txt and project_state.json) are also modified, but these appear to be documentation/metadata files reflecting the change, not functional code changes.",
+  "missing_requirements": [],
+  "hallucinated_features": [],
+  "confidence": 0.96,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/src/App.tsx",
-    "frontend/src/components/ATPAPanel.tsx",
-    "frontend/src/index.css",
+    "frontend/src/components/TemperaturePanel.tsx",
     "project_state.json"
   ]
 }

@@ -23,6 +23,11 @@ export function TemperaturePanel({ temperature, ultraTemperature, hasData }: Tem
 
   const tempColor = getTempColor(temperature);
 
+  // Scale: -50°C (0%) to +110°C (100%), total range = 160°
+  const MIN_TEMP = -50;
+  const MAX_TEMP = 110;
+  const RANGE = MAX_TEMP - MIN_TEMP; // 160
+
   return (
     <div className="glass-panel p-6 flex flex-col items-center justify-center text-center h-full">
       <div className="flex items-center gap-2 mb-4">
@@ -60,16 +65,16 @@ export function TemperaturePanel({ temperature, ultraTemperature, hasData }: Tem
       {/* Temperature scale indicator */}
       <div className="mt-5 w-full">
         <div className="flex justify-between text-xs font-mono text-white/25 mb-1">
-          <span>-10°</span>
+          <span>-50°</span>
           <span>0°</span>
-          <span>20°</span>
-          <span>40°</span>
+          <span>50°</span>
+          <span>110°</span>
         </div>
         <div className="glow-bar h-1.5 w-full">
           <div
             className="glow-bar-fill"
             style={{
-              width: `${Math.max(0, Math.min(100, ((temperature + 10) / 50) * 100))}%`,
+              width: `${Math.max(0, Math.min(100, ((temperature - MIN_TEMP) / RANGE) * 100))}%`,
               background: `linear-gradient(90deg, #88ccff, ${tempColor})`,
               boxShadow: `0 0 8px ${tempColor}80`,
             }}

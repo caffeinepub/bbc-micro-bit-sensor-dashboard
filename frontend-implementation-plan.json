@@ -1,66 +1,24 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add ATPA Admin Panel with password-gated connection access and location input",
+  "title": "Extend temperature bar range to -50°C – +110°C",
   "requirements": [
     {
-      "id": "REQ-14",
-      "summary": "Create a password-gated ATPA admin panel with glassmorphism styling that shows login form when locked and transitions to unlocked state with connection controls when correct password is entered",
+      "id": "REQ-17",
+      "summary": "Update TemperaturePanel.tsx visual scale bar to use -50°C minimum and +110°C maximum bounds",
       "acceptanceCriteria": [
-        "A panel labelled 'ATPA – Admin Transmission Ports Access' appears on the dashboard without altering any existing panels.",
-        "The panel shows a password input and 'Access' button when locked.",
-        "Entering '2AKFPMB0220' and submitting transitions the panel to the unlocked state.",
-        "Entering any other value shows an 'Access Denied – Invalid Credentials' error.",
-        "A 'Lock / Sign Out' button in the unlocked state resets the panel back to the login form.",
-        "All transitions are animated smoothly consistent with the existing glassmorphism theme.",
-        "No other component, panel, hook, or style is changed."
+        "The temperature scale bar renders -50°C as its leftmost (0%) position.",
+        "The temperature scale bar renders +110°C as its rightmost (100%) position.",
+        "A temperature reading of 0°C fills the bar to approximately 30.8% ((0-(-50))/(110-(-50))).",
+        "A temperature reading of 110°C fills the bar to 100%.",
+        "A temperature reading of -50°C fills the bar to 0%.",
+        "No other change is visible in the TemperaturePanel or any other dashboard panel."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/ATPAPanel.tsx",
-          "operation": "create",
-          "description": "Create a new ATPAPanel component that renders a glassmorphism panel with two states: locked (showing password input, Access button, and error message) and unlocked (showing Lock/Sign Out button, ConnectionPanel slot, and location section). The component manages authentication state locally using useState, validates the password '2AKFPMB0220' on the frontend, and applies smooth CSS transitions matching the existing dashboard theme. The component accepts a children prop to render the ConnectionPanel when unlocked."
-        },
-        {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/components/TemperaturePanel.tsx",
           "operation": "modify",
-          "description": "Import the new ATPAPanel component and wrap the existing ConnectionPanel instance with it, passing ConnectionPanel as a child to ATPAPanel. Remove the standalone ConnectionPanel from its current position in the dashboard grid and replace it with the ATPAPanel wrapper so that ConnectionPanel only renders inside the ATPA panel when unlocked. Ensure all other panels and layout remain unchanged."
-        }
-      ]
-    },
-    {
-      "id": "REQ-15",
-      "summary": "Move the existing ConnectionPanel component inside the ATPA panel when unlocked, removing its standalone placement, while preserving all connection functionality",
-      "acceptanceCriteria": [
-        "The ConnectionPanel component is rendered inside the ATPA panel only when the ATPA panel is in the unlocked state.",
-        "The ConnectionPanel component code is unchanged.",
-        "The ConnectionPanel no longer renders as a standalone panel outside ATPA.",
-        "Connecting via Bluetooth or USB Serial from within the ATPA panel still delivers data to all other dashboard panels (temperature, light, compass, etc.).",
-        "When the ATPA panel is locked, the ConnectionPanel is hidden."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/ATPAPanel.tsx",
-          "operation": "modify",
-          "description": "Ensure the ATPAPanel component renders its children prop (which will be the ConnectionPanel) inside the unlocked state section, positioned above the Device Location section. The children are only rendered when the panel is in the unlocked state and hidden when locked."
-        }
-      ]
-    },
-    {
-      "id": "REQ-16",
-      "summary": "Add a Device Location input section inside the unlocked ATPA panel below the ConnectionPanel to capture and display the micro:bit's location",
-      "acceptanceCriteria": [
-        "A text input and 'Set Location' button appear in the unlocked ATPA panel below the ConnectionPanel.",
-        "Submitting a location string displays it as 'micro:bit Location: <entered value>' within the ATPA panel.",
-        "The location label updates if the user sets a new location.",
-        "The location is cleared when the panel is locked.",
-        "No other panel or component is affected."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/ATPAPanel.tsx",
-          "operation": "modify",
-          "description": "Add a Device Location section below the ConnectionPanel slot in the unlocked state, containing a text input labelled 'Enter micro:bit location (city or place)' and a 'Set Location' button. Use useState to track the current location value. When the user submits, display the location as 'micro:bit Location: <value>' below the input. Clear the location state when the panel is locked. Apply glassmorphism styling consistent with the existing dashboard design."
+          "description": "Update the visual scale bar logic to use -50°C as the minimum bound and +110°C as the maximum bound. Change the percentage fill calculation to use the new 160°C range (110 - (-50) = 160). Update any tick marks or scale labels to reflect the new bounds. Preserve all existing features: animated number display, ultra-precise display, color coding, typography, glassmorphism styling, and any other visual or behavioral aspects of the component."
         }
       ]
     }

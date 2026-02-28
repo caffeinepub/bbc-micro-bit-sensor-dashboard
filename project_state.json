@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 5,
+  "projectStateVersion": 7,
   "summary": "Real-time BBC micro:bit sensor dashboard website using HTML/CSS/JS with glassmorphism design. Receives live JSON data via Web Bluetooth BLE UART or Web Serial USB. Displays temperature (normal + ultra-precise), light level, compass heading, sound level, storm detection, and weather status inference. Features history graphs (5 min), animated gauges, rotating compass needle, and full connection management with reconnect support.",
   "architectural_notes": [
     "Pure HTML/CSS/JS (no framework) single-file or multi-file web app",
@@ -141,6 +141,14 @@
         "REQ-16"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-in-temperaturepanel-tsx-update-the-visual-scale-bar-so-that-its-minimum-bound-is-50-c-and-its-maximum-bound-is-110-c-the-percentage-fill-calculation-for-the-bar-and-any-tick-label-positions-must-use-this-new-range-do-not-change-any-other-aspect-of-the-component-typography-colors-animation-ultra-precise-display-etc",
+      "title": "In TemperaturePanel.tsx, update the visual scale bar so that its minimum bound is -50°C and its maximum bound is +110°C. The percentage fill calculation for the bar and any tick/label positions must use this new range. Do not change any other aspect of the component (typography, colors, animation, ultra-precise display, etc.).",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -207,6 +215,12 @@
     {
       "id": "AR-11",
       "summary": "ATPA (Admin Transmission Ports Access) panel with password login (2AKFPMB0220). After login, shows the existing BLE UART and Web Serial connection panel (moved here). Also allows entering the micro:bit's current city/place location to display its location.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Extend temperature bar range to -50°C minimum and +110°C maximum",
       "reqIds": [],
       "status": "pending"
     }
